@@ -1,0 +1,10 @@
+model:
+  package: go_graphql_test
+  filename: ./models_gen.go
+client:
+  package: go_graphql_test
+  filename: ./client.go # Where should any generated client go?
+query:
+  - "./query/*.graphql" # Where are all the query files located?
+schema:
+  - "./schema/**/*.graphql" # Where are all the query files located?
