@@ -36,13 +36,9 @@ func ListUsers(
 	ctx context.Context,
 	client graphql.Client,
 ) (*ListUsersResponse, error) {
-	var err error
-
-	var retval ListUsersResponse
-	err = client.MakeRequest(
-		ctx,
-		"ListUsers",
-		`
+	req := &graphql.Request{
+		OpName: "ListUsers",
+		Query: `
 query ListUsers {
 	listUsers {
 		id
@@ -51,8 +47,17 @@ query ListUsers {
 	}
 }
 `,
-		&retval,
-		nil,
+	}
+	var err error
+
+	var data ListUsersResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
 	)
-	return &retval, err
+
+	return &data, err
 }
